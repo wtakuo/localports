@@ -1,0 +1,54 @@
+--- doc/info/extract_categories.sh.orig	2011-09-06 20:08:27.000000000 +0900
++++ doc/info/extract_categories.sh	2011-09-06 20:09:29.000000000 +0900
+@@ -17,7 +17,7 @@
+   if [ $f = "maxima.texi" ]
+     then echo SKIP OVER $f
+     else
+-      sed 's/^@def\(fn\|vr\)  *{[^}]*}  *\([^[:blank:]]*\).*/@anchor{Item: \2}\
++      gsed 's/^@def\(fn\|vr\)  *{[^}]*}  *\([^[:blank:]]*\).*/@anchor{Item: \2}\
+ \0/; s/^@node  *\([^,]*\).*/@anchor{Item: \1}\
+ \0/' "$f" > tmp.texi
+       mv tmp.texi "$f"
+@@ -26,13 +26,13 @@
+ 
+ cat *.texi\
+   | awk '!/^@c / && !/^@c$/ && (/^@deffn/ || /^@defvr/ || /^@end deffn/ || /^@end defvr/ || /@category/ || /@node/)'\
+-  | sed -f $d/extract_categories1.sed \
++  | gsed -f $d/extract_categories1.sed \
+   | awk -F'$' -f $d/extract_categories1.awk \
+   > tmp-make-categories.py
+ 
+ ${PYTHONBIN:-python} tmp-make-categories.py
+ 
+-sed 's/^@bye//' $TARGET_TEXI > tmp-target.texi
++gsed 's/^@bye//' $TARGET_TEXI > tmp-target.texi
+ echo '@node Documentation Categories' >> tmp-target.texi
+ echo '@chapter Documentation Categories' >> tmp-target.texi
+ for f in Category-*.texi; do echo '@include' $f; done >> tmp-target.texi
+@@ -49,7 +49,7 @@
+     grep -q '<a href=".*">Category: .*</a>' $f
+     if [ $? = 0 ]; then
+         echo FIX UP CATEGORY BOXES IN $f
+-        sed 's/^&middot;$//; s/<p>\(<a href=".*">Category: .*<\/a>\)/<p>Categories:\&nbsp;\&nbsp;\1/' $f > tmp.html
++        gsed 's/^&middot;$//; s/<p>\(<a href=".*">Category: .*<\/a>\)/<p>Categories:\&nbsp;\&nbsp;\1/' $f > tmp.html
+         mv tmp.html $f
+     fi
+ done
+@@ -59,7 +59,7 @@
+     grep -q '<a href=".*">Category: .*</a>' $f
+     if [ $? = 0 ]; then
+         echo FIX UP CATEGORY HREFS IN $f
+-        sed 's/<a href="\(.*\)">Category: \(.*\)<\/a>/<a href="\1">\2<\/a>/' $f > tmp.html
++        gsed 's/<a href="\(.*\)">Category: \(.*\)<\/a>/<a href="\1">\2<\/a>/' $f > tmp.html
+         mv tmp.html $f
+     fi
+ done
+@@ -69,7 +69,7 @@
+     grep -q '<a href=".*">Item: .*</a>' $f
+     if [ $? = 0 ]; then
+         echo FIX UP ITEM HREFS IN $f
+-        sed 's/<a href="\(.*\)">Item: \(.*\)<\/a>/<a href="\1">\2<\/a>/' $f > tmp.html
++        gsed 's/<a href="\(.*\)">Item: \(.*\)<\/a>/<a href="\1">\2<\/a>/' $f > tmp.html
+         mv tmp.html $f
+     fi
+ done
