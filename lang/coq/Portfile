@@ -2,8 +2,7 @@
 
 PortSystem  1.0
 
-name        coq83
-conflicts   coq
+name        coq
 version     8.3pl2
 revision    0
 platforms   darwin
