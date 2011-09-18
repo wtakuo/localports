@@ -1,0 +1,11 @@
+--- src/nsfont.m.orig	2011-01-09 02:45:14.000000000 +0900
++++ src/nsfont.m	2011-09-18 13:27:09.000000000 +0900
+@@ -886,7 +886,7 @@
+     font->descent = -lrint(floor([sfont descender]));
+     font->min_width = ns_char_width(sfont, '|');
+     font->space_width = lrint (ns_char_width (sfont, ' '));
+-    font->average_width = lrint (font_info->width);
++    font->average_width = font->space_width;
+     font->max_width = lrint (font_info->max_bounds.width);
+     font->height = lrint (font_info->height);
+     font->underline_position = lrint (font_info->underpos);
