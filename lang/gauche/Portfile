@@ -4,7 +4,7 @@
 PortSystem 1.0
 
 name                gauche
-version             0.9.1
+version             0.9.2
 revision            0
 categories          lang scheme
 maintainers         akitada openmaintainer
@@ -28,22 +28,24 @@ homepage            http://www.shiro.dreamhost.com/scheme/gauche/
 master_sites        sourceforge
 distname            Gauche-${version}
 distfiles           ${distname}.tgz
-checksums           md5 6134e9c16aef2bc9fd3fa7e8fbebdd10 \
-                    sha1 0581b16ffe77fc836c8b56faae0c9820490b17c8 \
-                    rmd160 a51fbd1751c5925aff8f1f0644ab4247c28bd9a5
+checksums           md5 9979de5be0e35e57131508c4c606f5cb \
+                    sha1 038db9f811a29e689638e37703a518edf7000838 \
+                    rmd160 baa955627888f5d45de3dcbf8cfee5bdf0542dce
 
 depends_lib         port:gdbm \
                     port:libiconv \
                     port:slib
 
-if {${configure.compiler} == "clang" ||
-	${configure.compiler} == "llvm-gcc-4.2"} {
-	configure.compiler gcc-4.2
-	if {![file executable ${configure.cc}]} {
-		depends_build-append port:apple-gcc42
-		configure.compiler apple-gcc-4.2
-	}
-}
+#platform darwin 10 {
+#  if {${configure.compiler} == "clang" ||
+#	${configure.compiler} == "llvm-gcc-4.2"} {
+#	configure.compiler gcc-4.2
+#	if {![file executable ${configure.cc}]} {
+#		depends_build-append port:apple-gcc42
+#		configure.compiler apple-gcc-4.2
+#        }
+#  }
+#}
 
 configure.args      --mandir=${prefix}/share/man --infodir=${prefix}/share/info \
                     --with-local=${prefix} --enable-multibyte=utf-8 \
