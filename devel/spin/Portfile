@@ -4,7 +4,7 @@
 PortSystem      1.0
 
 name            spin
-version         6.2.2
+version         6.2.3
 set version_no_dot [join [split ${version} .] ""]
 distname        ${name}${version_no_dot}
 categories      devel
@@ -22,9 +22,9 @@ long_description \
 homepage        http://spinroot.com
 master_sites    http://spinroot.com/spin/Src/
 livecheck.type  none
-checksums           md5     981a100e3403453126f89a2cc507eb0b \
-                    sha1    f402048864761d0fceefa61e8f03a9ee33a16a4c \
-                    rmd160  e09376b1fcb35760f9be3e123ee86d372ef4de42
+checksums           md5     99b8ad8e996f71e852d87f957fda9ae2 \
+                    sha1    af4e809627ac3d33d2125569d63fde5515659ef4 \
+                    rmd160  2ec58528df1e480646a340a89ebbc16735c88ecd
 depends_lib     port:tk port:tcl 
 worksrcdir      Spin/Src${version}
 use_configure   no
